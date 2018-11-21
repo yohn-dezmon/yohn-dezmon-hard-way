@@ -6,7 +6,7 @@ class Animal(object):
   def __init__(self, size):
     self.size = size
   
-  def walk_on_4: 
+  def walk_on_4(): 
     print("This animal is walkin' on 4 legs!")
 ## Dog is-a Animal
 class Dog(Animal):
