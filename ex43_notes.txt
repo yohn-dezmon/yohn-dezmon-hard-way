@@ -1,0 +1,179 @@
+A general model for building things with OOP
+( a process )
+( won't always work )
+
+1. Write or draw about the problem
+2. extract key concepts from 1 and research them.
+3. Create a class hierarchy and object map for the concepts
+4. Code the classes and test to run them
+5. Repeat and refine. (while loop hehe)
+
+"better late than never"
+
+go through notes/drawings/maps and pull out the ke concepts!
+
+(*) make a list of all of the verbs and nouns in your writings.
+(*) then write out how they're related.
+
+*How to store the game's state in a database!
+what..... cool!
+*How ships are designed!
+*How bombs work!
+
+turning an idea into a class hierarchy:
+What is similar to other things?
+What is basically just another word for another thing?
+e.g. Room and Scene are p much the same thing depending on how you look ati it
+Scene is more general than room (as it can account for a literal room or somethign like death)
+Map vs. Maze, once again MAP is more general, therefore use map.
+
+his e.g. class hierarchy:
+-Map
+*next scene
+* opening_scene
+-Engine
+*play
+_Scene
+*enter (all of the scenes below enter will inherit enter (or scene?))
+  -Death
+  -Central Corridor
+  -Laser Weapon Armory
+  -The Bridge
+  -Escape Pod
+
+He usually just copies and pastes the conceptual tree (^) into a source file
+and begins to edit it into classes!
+He starts off very basic (with just function/class names and pass!)
+
+Bottom up:
+1. Take a small piece of the problem; hack on some code and get it to run barely
+2. Refine the code into something more formal with classes and automated tests
+3. Extract teh key concepts you're using and try to find research for them
+4. Write a description of what's really going on.
+5. Go back and refine the code, possibly throwing it out and starting over
+6. Repeat, moving on to some other piece of the Problem
+
+
+--------
+Research:
+
+I played Zork again (last time I played was when I first started this book)
+and now that I have already tried to create my own game, I had some questions.
+One of my questions, was how to make the game play less bulky (i.e. always giving the options that the user must input)
+
+In Zork, they solve this by providing a HELP function that provides detailed instructions on
+which text commands are accepted in different scenarios throughout the game.
+
+I'd like to use this idea, and this also leads me to a question of how I might
+use a better if statement for the user's input to do more of a 'contains' functinoality as opposed to
+requiring that the user enter in an exact line of text in order to continue.
+
+Ah of course! an easy way to have the program recognize a user's more genearl input is to include wildcard symbols
+around the text of interest!
+
+I wanted to verify I knew how Zork was working, so I looked up a python code for Zork, and found this!
+: https://github.com/iamjawa/zork-py/blob/master/zork.py
+I found an interesting technique which I may also implement, mainly the use of setting
+a variable loop equal to a number, and having a while loop being based on that value
+and changing the value once a certain action has been taken.
+
+e.g. the value for loop starts off at 4, and so long as it is true, the first while loop runs.
+once a certain direction (SW) is chosen by the user...
+the value is reset to 8... hence ending the while loop that was defined as '== 4'
+this allows a new while loop to be accessed, which provides a different set of responses for a different scene/location.
+
+On second thought I probably won't use that since I'm using classes... but we'll see!
+
+-------
+Inventory Research:
+
+How to set up an inventory?
+-have an inventory set to a list, invn = []
+-if the player succesfully picks something up, have the item .append()
+-have a function the user can call at any time to access the inventory
+https://codereview.stackexchange.com/questions/57438/game-inventory-system
+>define an ITEM class! (with only an __init__)
+>define an inventory class, with __init__(self): self.items = {}, i.e. a blank dictionary.
+> in the inventory class, provide methods for adding to the inventory, and displaying the contents of the inventory.
+
+--------
+Setting up a score system:
+
+My idea: set up a score class... ok this was fine and kind of worked, but I couldn't get the instance
+to save the previous value from when I called the instance, so every time I used the methods
+the value just reset itself to the new value I was inputting... there is definitely a way to fix this but I don't know right now.
+
+Another idea: just have the score of the user equal to a variable, and initially set it up at 0.
+Then if certain events occur, add to the variable.
+this becomes less clear however, if I want the user to be able to type in a command to see their current score...
+
+*****General question that applies to the game: How can I have words that the user can type at any time to access certain things like
+inventory/score/health... [set up a main function! ]
+--> possible soln: for every scene have an if statement that leads to inventory/health/score...
+
+
+-----
+Class research:
+
+Q: Can you refer to another class that isn't a parent class within a class?
+A: I'm not sure, but it appears that that's what the author my inventory style did. (look at code for ex43.py)
+
+Q: Can you perform operations on attributes (like addition) when defining other attributes?
+A:
+
+Q: #does the text follow 'self.' have to match the right side of the equation?
+A: Not always, for example self.dict = {} .... hmmm!
+
+using super(Subclass, self).__init__() where you've already put the parent class in
+the parentheses of the class... allows you to inherit all of the attributes
+from the parent class (I think).
+
+using super(Subclass, self).__init__(name, balding) let's you inherit specific attributes.
+
+
+
+--
+
+Setting up a class for the player!
+
+including an inventory, health, location (x,y coordinates), status (ingame, victory...)
+using "isinstance" in an if statement to see if an item within a inventory is a weapon:
+for i in self.inventory:
+(tab) if isinstance(i, items.Weapon):
+(tab)(tab) if i.damage > max_dmg:
+(tab)(tab) max_dmg = i.damage
+(tab)(tab) best_weapon = i
+
+source: https://letstalkdata.com/2014/08/how-to-write-a-text-adventure-in-python-part-3-player-action/
+
+----
+General Python research:
+**kwargs = used to insert dictionary key-value pairs into a function!
+*args --> allows you to take more arguments than you previously defined!
+you can include it in your own function, i.e. def myFun(argv*): ... myFun("adf", 'DDD', 'HEHE')
+
+http://book.pythontips.com/en/latest/args_and_kwargs.html
+
+-----
+Creating a 'game engine':
+
+This is esentially a class that allows the user to move from one scence to the next. 
+
+-----
+ERRORS AND RESOLUTION
+error: SyntaxError: non-default argument follows default argument
+resolution: https://stackoverflow.com/questions/24719368/syntaxerror-non-default-argument-follows-default-argument
+
+---
+Creating an interactive map/positional attribute for our hero!
+>use location as a character positional attribute!
+>
+
+--
+parts of a space ship
+--
+Maze research:
+https://www.youtube.com/watch?v=ERLT1iU0DVY
+--
+Interactivity
+youtube: Python Text RPG (part 4) - Handling interactivity.
