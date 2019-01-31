@@ -1,0 +1,36 @@
+lexicon = list of allowable words.
+
+Direction: north, south, east, west, down, up, left, right, back
+
+Verbs: go, stop, kill, eat
+
+stop words: the, in, of, from, at, it
+
+Nouns: door, bear, princess, cabinet
+
+Numbers: any string of 0 through 9 characters
+
+Our definition of a sentence >>> words separated by spaces.
+
+so to break up words into a sentence...
+(ex48.py)
+
+stuff = input('> ')
+words = stuff.split()
+
+tuple = list that you can't modify.
+
+form of these is (TOKEN, WORD)
+...
+first_word = ('verb', 'go')
+second_word = ('direction', 'north')
+third_word = ('direction', 'west')
+sentence = [first_word, second_word, third_word]
+
+
+WRITING A SCANNER:
+
+Taking a user's input (raw string) and returning a sentence that's composed of tuples
+with (TOKEN, WORD) pairings.
+If a word isn't part of the lexicon, then it should still return the WORD but set the
+TOKEN to an error token.

@@ -1,0 +1,85 @@
+we need to turn the preceding list of tuples into a nice Sentence object
+that has a subject, verb, and object.
+
+To do this we need 5 tools:
+
+1. a way to loop through the list of scanned words.
+2. A way to match different types of tuples that we expect in our Subject Object verb
+3. A way to peek at a potential tuple so we can make some decisions
+4. A way to skip things we don't care about, (like stop words)
+5. A sentence object to put  the results in.
+
+
+the Sentence object needs to include (3 attributes)...
+
+Sentence.subject - this is the subjet of any sentence but could default to "player"
+most of the time since a sentence of "run north" is implying "player run north".
+This will be a noun.
+
+Sentence.verb - This is the action of the sentence. In "run north" it would be "run"
+This will be a verb.
+
+Sentence.object - This is another noun that refers to waht the verb
+
+
+
+ok things inside [] are LISTS.
+lists are indexed, but can be changed.
+things within () are tuples and are immutable (can't be changed)
+both tuples and lists have indexes! (starting at 0)
+
+I think .scan() produces a list of tuples ... e.g.
+[(x, y), (x, z)]
+
+
+#ok General Question(1):
+# how do I test for methods that have arguments...
+# b/c before I didn't include the argument for peek and it passed the test...
+#
+# General Question (2):
+# How do I write a unit test for a function that raises an error?
+# In nose you would use the assert_raises key word, so check for the equivalent in
+# pytest
+# https://docs.pytest.org/en/latest/assert.html
+#
+# General Question (3):
+# right now for pytest to run in the general 'lexicon' folder... I have to have
+# from NAME.lexicon import lexicon at the top of parser.py even though parser.py and lexicon
+# are BOTH in NAME...
+# if I try to use parser by actually going into that code, I have to delete the unnecessary
+# directory distinction for the code to work... there has to be a way to solve this!
+
+# does the syntax of the asserts matter? can I have an error test after I have
+  # a normal test? (YES)
+
+
+
+
+
+  ------------
+  outtake
+  # scanned_inp = lexicon.scan(user_input)
+  #
+  # class parse_b(lexicon):
+  #
+  #     def scan(self, stuff):
+  #         super(parse_b, self).scan(stuff)
+  #
+  #     def scan_user(self):
+  #         user_input = input("> ")
+  #         scanned_inp = self.scan(user_input)
+  #         self.parse_inp(scanned_inp)
+  #
+  #
+  #     def parse_inp(self, scanned_inp):
+  #         for x in scanned_inp:
+  #             if x == 'noun':
+  #                 print(x)
+  #                 # z = [x for x,y in enumerate(scanned_inp)]
+  #                 return x, y
+  #             # elif x == 'verb':
+  # b = parse_b()
+  # # user_input = input("> ")
+  # # scanned_inp = b.scan(user_input)
+  # # b.parse_inp(scanned_inp)
+  # b.scan_user()
